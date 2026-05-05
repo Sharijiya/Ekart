@@ -51,8 +51,10 @@ pipeline {
         }
 
         stage('Build') {
-            steps {
-                sh "mvn package -DskipTests=true"
+         steps {
+            withMaven(options: [junitPublisher(disabled: true)]) {
+            sh 'mvn clean install -DskipTests'
+                }
             }
         }
 
